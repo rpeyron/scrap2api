@@ -79,6 +79,7 @@ $scrap["endpoint"] = [
 * `post_replace` : (optional) replace string for post-processing
 * `doc` : (optional) documentation string to be used in Swagger
 
+Disclaimer : scrapping is not always allowed by the service provider ; always check terms of service of the website to see if it is allowed. This script cannot be held responsible of improper use.
 
 
 # Developer's Information
