@@ -45,6 +45,9 @@ $scrap["google-numresults"] = [
     ];
 ```
 
+Once defined, you mayuse it in your programs, or also in Excel / Libreoffice with the formula
+`=WEBSERVICE("https://<yourserver>/scrap.php/endpoint/<id>?token=<token>")` (Use `=SERVICEWEB` in French)
+
 # Documentation of scrap definition
 
 The pattern of a new endpoint URL is `https://<yourserver>/scrap.php/endpoint/<id>?token=<token>`
