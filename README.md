@@ -45,9 +45,9 @@ $scrap["google-numresults"] = [
     ];
 ```
 Example URL would be (with 'foo' as searh string) :
-'''
+```
 https://<yourserver>/scrap.php/google-numresults/foo?token=test
-'''
+```
 Once defined, you may use it in your programs, or also in Excel / Libreoffice with the formula
 `=WEBSERVICE("https://<yourserver>/scrap.php/<endpoint>/<id>?token=<token>")` (Use `=SERVICEWEB` in French)
 
