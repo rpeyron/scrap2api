@@ -44,13 +44,16 @@ $scrap["google-numresults"] = [
         'doc'=> 'Get the number of results of a Google search',
     ];
 ```
-
-Once defined, you mayuse it in your programs, or also in Excel / Libreoffice with the formula
-`=WEBSERVICE("https://<yourserver>/scrap.php/endpoint/<id>?token=<token>")` (Use `=SERVICEWEB` in French)
+Example URL would be (with 'foo' as searh string) :
+'''
+https://<yourserver>/scrap.php/google-numresults/foo?token=test
+'''
+Once defined, you may use it in your programs, or also in Excel / Libreoffice with the formula
+`=WEBSERVICE("https://<yourserver>/scrap.php/<endpoint>/<id>?token=<token>")` (Use `=SERVICEWEB` in French)
 
 # Documentation of scrap definition
 
-The pattern of a new endpoint URL is `https://<yourserver>/scrap.php/endpoint/<id>?token=<token>`
+The pattern of a new endpoint URL is `https://<yourserver>/scrap.php/<endpoint>/<id>?token=<token>`
 * `/endpoint` is the name of the ressource you are looking for  (eg : the number of results of a google search)
 * `<id>` is the identifier of the ressource item you are looking for  (eg: the words to use with the google search)
 * `<token>` is a token to have the right to access to this endpoint, if you have configured one
@@ -62,7 +65,7 @@ $scrap["endpoint"] = [
         'search' => '<regular expression to search the result>',
     ];
 ```
-* `endpoint` : will be the name of the new ressource to get with `https://<yourserver>/scrap.php/endpoint/<id>`
+* `endpoint` : will be the name of the new ressource to get with `https://<yourserver>/scrap.php/<endpoint>/<id>`
 * `url` : the URL to be retrieved ; '%s' will be replaced with the <id> provided in the request (sprintf syntax)
 * `context` : (optional, default null) context to be used with url
 * `tokens` : (optional) array of valid tokens (if none, will be useable without token)
