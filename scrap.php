@@ -117,7 +117,7 @@ function cache_put($url, $content) {
         // silently ignore if directory not writeable
         //die('Cache folder not writeable');
     }
-    return $false;
+    return false;
 }
 
 function cache_get($url, $timeout) {
@@ -127,7 +127,7 @@ function cache_get($url, $timeout) {
     if (time() <= (filemtime($cache_file) + $timeout)) {
         return file_get_contents($cache_file);
     }
-    return $false;
+    return false;
 }
 
 function cache_clean()  {
@@ -210,7 +210,7 @@ function plugin_openapi() {
 ?>swagger: "2.0"
 info:
   title: "Scrap.php API"
-  description: "This is a generic API for easy webscrapping."
+  description: "This is a generic API for easy webscrapping. (Documentation on https://github.com/rpeyron/scrap2api/)"
   version: "1.0.0"
 host: "<?php print($_SERVER['SERVER_NAME']); ?>"
 basePath: "<?php print($_SERVER['SCRIPT_NAME']); ?>"
@@ -316,6 +316,7 @@ add_endpoint("GET","!/openapi-ui$!", 'plugin_openapi_ui', 'plugin_openapi_ui_doc
 
 function plugin_scrap($uri, $matches) {
     global $scrap;
+    global $service;
     global $parsers;
     global $postprocessors;
     
@@ -379,7 +380,8 @@ function plugin_scrap($uri, $matches) {
                             die("No valid postprocessing method");
                         }
                     }
-                    
+                    //header('Content-Type: application/xml; charset=utf-8');
+                    //print("<result>" . $result . "</result>");
                     print($result);
                 }
                 
@@ -463,6 +465,8 @@ add_endpoint("GET",'$/(?P<service>[^/]*)/(?P<ressource>[^/?&]*)/?(?:[&?]token=(?
 if (function_exists('preg_match')) {
 
 function plugin_parser_preg($search, $content, $flags) {
+    global $scrap;
+    global $service;
     if (preg_match($search, $content, $matches, get($scrap[$service]['flags']))) {
         return $matches[1];
     } 
@@ -708,6 +712,21 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 //var_dump($_SERVER);
 //print("$method: $uri");
+
+// Handle CORS
+header("Access-Control-Allow-Origin: *");
+
+// Handle OPTIONS
+if ($method == "OPTIONS") {
+    http_response_code(204); 
+	die("OK");
+}
+
+// Handle HEAD
+if ($method == "HEAD") {
+	// Process as GET
+	$method = "GET";
+}
 
 // Search & run endpoints
 $found = false;
